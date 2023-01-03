@@ -10,9 +10,11 @@ rolling_average <- function(v) {
     return(srednia_kroczaca)
 }
 
+visa$cena_srednia <- (visa$High + visa$Low)/2
+mastercard$cena_srednia <- (mastercard$High + mastercard$Low)/2
 # do średniej kroczącej ceny otwarcia
-srednia_kroczaca_visa <- rolling_average(visa$Open)
-srednia_kroczaca_mastercard <- rolling_average(mastercard$Open)
+srednia_kroczaca_visa <- rolling_average(visa$cena_srednia)
+srednia_kroczaca_mastercard <- rolling_average(mastercard$cena_srednia)
 
 # wykres cen średniej kroczącej obu spółek
 pdf(file = "wykres.pdf")
@@ -35,8 +37,8 @@ dev.off()
 cor(srednia_kroczaca_visa, srednia_kroczaca_mastercard)
 
 # wachania ceny w ciągu dnia
-visa$Rozstep <- visa$High - visa$Low
-mastercard$Rozstep <- mastercard$High - mastercard$Low
+visa$Rozstep <- visa$Close - visa$Open
+mastercard$Rozstep <- mastercard$Close - mastercard$Open
 max(visa$Rozstep)
 max(mastercard$Rozstep)
 min(visa$Rozstep)
@@ -45,10 +47,41 @@ min(mastercard$Rozstep)
 mean(visa$Rozstep)
 sd(visa$Rozstep)
 
+# pdf(file = "histogram_visa.pdf")
+# hist(visa$Rozstep, breaks = 15)
+# dev.off()
+
+# pdf(file = "historam_mastercard.pdf")
+# hist(mastercard$Rozstep, breaks = 15)
+# dev.off()
+
+pdf(file = "histogram.pdf")
+par(mfrow = c(1, 2))
 hist(visa$Rozstep, breaks = 15)
 hist(mastercard$Rozstep, breaks = 15)
+dev.off()
 
-# względny zysk na dzień 31 grudnia 2022 po zainwestowaniu dolarów 2 stycznia 2019
-zysk_visa <- (tail(visa$Open, 1)-visa$Open[1])/visa$Open[1]
-zysk_mastercard <- (tail(mastercard$Open, 1) - mastercard$Open[1])/mastercard$Open[1]
+# względny przyrost ceny na dzień 31 grudnia 2022 po zainwestowaniu dolarów 2 stycznia 2019
+zysk_visa <- (tail(visa$cena_srednia, 1) - visa$cena_srednia[1]) / visa$cena_srednia[1]
+zysk_mastercard <- (tail(mastercard$cena_srednia, 1) - mastercard$cena_srednia[1]) / mastercard$cena_srednia[1]
 
+stopa_zwrotu_zakup_akcji_co_20_dni <- function(dataframe_name) {
+    dataframe_name$dzien_zakupu <- rep_len(c(1, rep(0, 19)), length.out = nrow(dataframe_name)) # make column that storage day of purchase
+
+    dataframe_name$liczba_akcji <- 100 / dataframe_name$cena_srednia * dataframe_name$dzien_zakupu
+
+    dataframe_name$skumulowana_liczba_akcji <- cumsum(dataframe_name$liczba_akcji)
+
+    dataframe_name$wartosc_portfela <- dataframe_name$skumulowana_liczba_akcji * dataframe_name$cena_srednia
+
+    dataframe_name$zainwestowane_srodki <- cumsum(dataframe_name$dzien_zakupu * 100)
+
+
+    n <- nrow(dataframe_name)
+
+    stopa_zwrotu <- (dataframe_name$wartosc_portfela[n] - dataframe_name$zainwestowane_srodki[n]) / dataframe_name$zainwestowane_srodki[n]
+    stopa_zwrotu
+}
+
+stopa_zwrotu_zakup_akcji_co_20_dni(visa)
+stopa_zwrotu_zakup_akcji_co_20_dni(mastercard)

@@ -1,0 +1,26 @@
+Instrukcje
+
+Praca realizowana może być wyłącznie w zespołach jednoosobowych lub dwuosobowych. 
+
+Każdy zespół zobowiązany jest do zaprezentowania, omówienia swojej pracy na zajęciach przedostatnich (23 stycznia 2023 r.).  
+
+
+Zadanie obejmuje 4 elementy:
+Analiza wybranego zbioru danych z wykorzystaniem narzędziu arkusza kalkulacyjnego (obligatoryjnie tabela przestawna oraz wykres).
+
+Analiza tego samego zbioru danych z wykorzystaniem języka R (obligatoryjnie wykres).
+
+Rozwiązanie wybranego zagadnienia optymalizacyjnego z wykorzystaniem solvera arkusza kalkulacyjnego oraz solvera dostępnego w bibliotekach R.
+
+Określenie w sposób przybliżony rozwiązania wybranego, nieoczywistego problemu/zadania z rachunku prawdopodobieństwa, kombinatoryki lub dziedzin pokrewnych przy użyciu języka R lub arkusza kalkulacyjnego. Rozwiązanie bazować ma analizie wielu realizacji (symulacji).
+
+Istotne szczegóły:
+
+Wszystkie wymagania i warunki (także terminy!) dotyczą również osób z indywidualnym tokiem studiów.
+Wszystkie pliki (!NIESPAKOWANE!) związane z wszystkimi czterema częściami należy przesłać jako odpowiedź na zadanie zdefiniowane na kanale MS Teams przed 08:00, 23 stycznia 2023 r.  - wtedy zamyka się zadanie. Jeżeli zespół nie zdąży wysłać plików, będzie mógł je dosłać, ale jego zadania ocenione będą co najwyżej na 3.5. Należy przesłać dane źródłowe, skoroszyty (Calc lub Excel), pliki z kodem R, pliki z wykresami z R oraz materiały wykorzystane podczas omawiania projektu.
+Oceną będzie średnia ważona z ocen składowych, a oceniane będą:  a) sposób zaprezentowania oraz umiejętność odpowiedzi na ewentualne pytania; istotnym elementem będzie zmieszczenie się w limicie czasu wynoszącym 8-10 minut (waga oceny: 0,4), b) łącznie analiza danych w arkuszu i R (waga oceny: 0,4),  c) łącznie rozwiązania zadania optymalizacyjnego oraz problemu z rachunku prawdopodobieństwa (waga oceny: 0,2).
+Istotnym elementem będzie oryginalność przeprowadzonej analizy, danych oraz rozważanych problemów. W sytuacji, gdy już podczas prezentacji lub na etapie późniejszej oceny wysłanych materiałów, zawartość plików wskazywała będzie na to, że dany zespół korzystał w sposób odtwórczy z pracy innego zespołu lub innego wspólnego źródła, zadanie tych (obu) zespołów ocenione zostanie całościowo maksymalnie na 3,5.
+Formę i sposób zaprezentowania pracy pozostawiam Państwa inwencji. Co istotne, w prezentacji muszą uczestniczyć wszyscy członkowie zespołu oraz powinna ona trwać od 8 do 10 minut. Nie należy przygotowywać dużej ilości materiałów - to tylko 8 minut. Należy zadbać o wizualne dopracowanie tego co będą Państwo pokazywać!
+W analizie danych nacisk powinien być położony na wyciąganie wniosków. Dane dotyczyć muszą aktualnych danych (powinny znaleźć się w nich również rekordy dotyczące obserwacji z roku 2021 lub 2022). Analiza przeprowadzona w arkuszu może dotyczyć innych aspektów niż ta przeprowadzona z wykorzystaniem R.
+Efektywnej pracy!
+

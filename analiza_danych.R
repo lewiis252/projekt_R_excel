@@ -1,3 +1,5 @@
+# setwd("/home/lewiis/kody komputerowe/projekt")
+
 visa <- read.csv("VISA.csv", header = TRUE, dec = ".")
 mastercard <- read.csv("MASTERCARD.csv", header = TRUE, dec = ".")
 
@@ -47,13 +49,9 @@ min(mastercard$Rozstep)
 mean(visa$Rozstep)
 sd(visa$Rozstep)
 
-# pdf(file = "histogram_visa.pdf")
-# hist(visa$Rozstep, breaks = 15)
-# dev.off()
+mean(mastercard$Rozstep)
+sd(mastercard$Rozstep)
 
-# pdf(file = "historam_mastercard.pdf")
-# hist(mastercard$Rozstep, breaks = 15)
-# dev.off()
 
 pdf(file = "histogram.pdf")
 par(mfrow = c(1, 2))
@@ -66,20 +64,21 @@ zysk_visa <- (tail(visa$cena_srednia, 1) - visa$cena_srednia[1]) / visa$cena_sre
 zysk_mastercard <- (tail(mastercard$cena_srednia, 1) - mastercard$cena_srednia[1]) / mastercard$cena_srednia[1]
 
 stopa_zwrotu_zakup_akcji_co_20_dni <- function(dataframe_name) {
-    dataframe_name$dzien_zakupu <- rep_len(c(1, rep(0, 19)), length.out = nrow(dataframe_name)) # make column that storage day of purchase
+    cena_srednia <- (dataframe_name$High + dataframe_name$Low)/2
 
-    dataframe_name$liczba_akcji <- 100 / dataframe_name$cena_srednia * dataframe_name$dzien_zakupu
+    dzien_zakupu <- rep_len(c(1, rep(0, 19)), length.out = nrow(dataframe_name)) # make column that storage day of purchase
 
-    dataframe_name$skumulowana_liczba_akcji <- cumsum(dataframe_name$liczba_akcji)
+    liczba_akcji <- 100 / cena_srednia * dzien_zakupu
 
-    dataframe_name$wartosc_portfela <- dataframe_name$skumulowana_liczba_akcji * dataframe_name$cena_srednia
+    skumulowana_liczba_akcji <- cumsum(liczba_akcji)
 
-    dataframe_name$zainwestowane_srodki <- cumsum(dataframe_name$dzien_zakupu * 100)
+    wartosc_portfela <- skumulowana_liczba_akcji * cena_srednia
 
+    zainwestowane_srodki <- cumsum(dzien_zakupu * 100)
 
     n <- nrow(dataframe_name)
 
-    stopa_zwrotu <- (dataframe_name$wartosc_portfela[n] - dataframe_name$zainwestowane_srodki[n]) / dataframe_name$zainwestowane_srodki[n]
+    stopa_zwrotu <- (wartosc_portfela[n] - zainwestowane_srodki[n]) / zainwestowane_srodki[n]
     stopa_zwrotu
 }
 

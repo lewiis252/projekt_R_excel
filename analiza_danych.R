@@ -4,13 +4,14 @@ visa <- read.csv("VISA.csv", header = TRUE, dec = ".")
 mastercard <- read.csv("MASTERCARD.csv", header = TRUE, dec = ".")
 
 # funkcja do obliczenia średniej kroczącej
-rolling_average <- function(v) {
-    srednia_kroczaca <- c()
-    for (i in 4:(length(v) - 3)) {
-        srednia_kroczaca[i - 3] <- mean(v[(i - 3):(i + 3)])
-    }
+rolling_average <- function(x, n = 7){
+    srednia_kroczaca <- filter(x, rep(1 / n, n))
+    srednia_kroczaca <- srednia_kroczaca[-(1:3)]
+    srednia_kroczaca <- srednia_kroczaca[- ((length(srednia_kroczaca)-2): length(srednia_kroczaca))]
     return(srednia_kroczaca)
-}
+    }
+
+
 
 visa$cena_srednia <- (visa$High + visa$Low) / 2
 mastercard$cena_srednia <- (mastercard$High + mastercard$Low) / 2
@@ -18,6 +19,7 @@ mastercard$cena_srednia <- (mastercard$High + mastercard$Low) / 2
 srednia_kroczaca_visa <- rolling_average(visa$cena_srednia)
 srednia_kroczaca_mastercard <- rolling_average(mastercard$cena_srednia)
 
+srednia_kroczaca_visa1 <- rolling_average1(visa$cena_srednia)
 # wykres cen średniej kroczącej obu spółek
 pdf(file = "wykres.pdf")
 plot(srednia_kroczaca_visa, type = "l", col = "blue", xlab = "Data", ylab = "Cena", ylim = c(140, 400), lty = 1, xaxt = "n")
@@ -55,9 +57,14 @@ sd(mastercard$Rozstep)
 
 pdf(file = "histogram.pdf")
 par(mfrow = c(1, 2))
-hist(visa$Rozstep, breaks = 15)
-hist(mastercard$Rozstep, breaks = 15)
+hist(visa$Rozstep, breaks = 20)
+hist(mastercard$Rozstep, breaks = 20)
 dev.off()
+?boxplot
+
+# par(mfrow = c(1, 2))
+# boxplot(visa$Rozstep)
+# boxplot(mastercard$Rozstep)
 
 # względny przyrost ceny na dzień 31 grudnia 2022 po zainwestowaniu dolarów 2 stycznia 2019
 zysk_visa <- (tail(visa$cena_srednia, 1) - visa$cena_srednia[1]) / visa$cena_srednia[1]
@@ -84,3 +91,4 @@ stopa_zwrotu_zakup_akcji_co_20_dni <- function(dataframe_name) {
 
 stopa_zwrotu_zakup_akcji_co_20_dni(visa)
 stopa_zwrotu_zakup_akcji_co_20_dni(mastercard)
+

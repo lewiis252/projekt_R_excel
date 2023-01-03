@@ -12,8 +12,8 @@ rolling_average <- function(v) {
     return(srednia_kroczaca)
 }
 
-visa$cena_srednia <- (visa$High + visa$Low)/2
-mastercard$cena_srednia <- (mastercard$High + mastercard$Low)/2
+visa$cena_srednia <- (visa$High + visa$Low) / 2
+mastercard$cena_srednia <- (mastercard$High + mastercard$Low) / 2
 # do średniej kroczącej ceny otwarcia
 srednia_kroczaca_visa <- rolling_average(visa$cena_srednia)
 srednia_kroczaca_mastercard <- rolling_average(mastercard$cena_srednia)
@@ -64,7 +64,7 @@ zysk_visa <- (tail(visa$cena_srednia, 1) - visa$cena_srednia[1]) / visa$cena_sre
 zysk_mastercard <- (tail(mastercard$cena_srednia, 1) - mastercard$cena_srednia[1]) / mastercard$cena_srednia[1]
 
 stopa_zwrotu_zakup_akcji_co_20_dni <- function(dataframe_name) {
-    cena_srednia <- (dataframe_name$High + dataframe_name$Low)/2
+    cena_srednia <- (dataframe_name$High + dataframe_name$Low) / 2
 
     dzien_zakupu <- rep_len(c(1, rep(0, 19)), length.out = nrow(dataframe_name)) # make column that storage day of purchase
 

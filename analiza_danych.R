@@ -9,22 +9,26 @@ rolling_average <- function(v) {
     }
     return(srednia_kroczaca)
 }
-visa$Date[1000]
+gsub('-','/',substr(visa$Date[1000],3,10))
 srednia_kroczaca_visa <- rolling_average(visa$Open)
 srednia_kroczaca_mastercard <- rolling_average(mastercard$Open)
 
+
 pdf(file = "wykres.pdf")
-plot(srednia_kroczaca_visa, type = "l", col = "blue", xlab = "Data", ylab = "Cena", ylim = c(140, 400), lty = 1)
-axis(1, at=0:5,labels = c(visa$Date[1], visa$Date[200], visa$Date[400], visa$Date[600], visa$Date[800], visa$Date[1000]), las=2)
+plot(srednia_kroczaca_visa, type = "l", col = "blue", xlab = "Data", ylab = "Cena", ylim = c(140, 400), lty = 1, xaxt='n')
 lines(srednia_kroczaca_mastercard, type = "l", col = "orange", lty = 1)
-# axis(1, at = c(visa$Date[1], visa$Date[200], visa$Date[400], visa$Date[600], visa$Date[800], visa$Date[1000]), format = "%d-%m-%Y", las = 2)
+axis(1, at=c(0,200,400,600,800,1000), 
+    labels = c(gsub('-','/',substr(visa$Date[1],3,10)),gsub('-','/',substr(visa$Date[200],3,10)),gsub('-','/',substr(visa$Date[400],3,10)),
+    gsub('-','/',substr(visa$Date[600],3,10)),gsub('-','/',substr(visa$Date[800],3,10)),gsub('-','/',substr(visa$Date[1000],3,10))), las=0)
+
 legend(100, 400,
     legend = c("Visa", "Mastercard"),
     col = c("blue", "orange"), lty = 1, cex = 0.8
 )
 dev.off()
-?axis
 
+c(substr(visa$Date[1],3,10), substr(visa$Date[200],3,10), substr(visa$Date[400],3,10), substr(visa$Date[600]3,10), 
+    substr(visa$Date[800],3,10), substr(visa$Date[1000],3,10))
 df <- data.frame(GIS$Date[4:(length(v) - 3)], oryginalne_wyceny_bez_końcowych, srednia_kroczaca)
 colnames(df) <- c("Date", "Open", "Running average")
 

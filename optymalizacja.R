@@ -2,7 +2,7 @@
 library("lpSolve")
 
 # linear programming: small problems
-# zadanie 68
+# zadanie 68 s 105
 # Set up cost matrix
 costs <- matrix(c(6, 1, 3, 3, 4, 3, 5, 2, 3, 2, 4, 5),
     nrow = 3, byrow = TRUE
@@ -22,7 +22,7 @@ col.rhs <- c(700, 700, 1000, 800)
 lptrans$solution
 lptrans$objval
 
-# zadanie 75
+# zadanie 75 s 108
 # a)
 # Set up cost matrix
 production_cost <- c(220, 200, 210)

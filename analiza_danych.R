@@ -22,7 +22,7 @@ srednia_kroczaca_mastercard <- rolling_average(mastercard$cena_srednia)
 srednia_kroczaca_visa1 <- rolling_average1(visa$cena_srednia)
 # wykres cen średniej kroczącej obu spółek
 pdf(file = "wykres.pdf")
-plot(srednia_kroczaca_visa, type = "l", col = "blue", xlab = "Data", ylab = "Cena", ylim = c(140, 400), lty = 1, xaxt = "n")
+plot(srednia_kroczaca_visa, type = "l", col = "blue", xlab = "Data", ylab = "Cena", ylim = c(140, 400), lty = 1, xaxt = "n", ,main='Ceny akcji w latach 2019-2022')
 lines(srednia_kroczaca_mastercard, type = "l", col = "orange", lty = 1)
 axis(1,
     at = c(0, 200, 400, 600, 800, 1000),
@@ -57,8 +57,8 @@ sd(mastercard$Rozstep)
 
 pdf(file = "histogram.pdf")
 par(mfrow = c(1, 2))
-hist(visa$Rozstep, breaks = 20)
-hist(mastercard$Rozstep, breaks = 20)
+hist(visa$Rozstep, breaks = 20, main='Występowanie kwoty salda', xlab='Róznica cen na koniec dnia', ylab='Częstość')
+hist(mastercard$Rozstep, breaks = 20, main='Występowanie kwoty salda', xlab='Róznica cen na koniec dnia', ylab='Częstość')
 dev.off()
 ?boxplot
 

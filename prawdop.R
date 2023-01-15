@@ -8,43 +8,6 @@
 liczba_prob <- 10000000
 liczba_prob_spelniajacych_warunek <- 0
 
-# for (j in 1:liczba_prob) {
-#     wylosowane_liczby <- sample(1:20, 5, rep = TRUE)
-#     warunek_spelniony <- 0
-#     for (i in 1:5) {
-#         if (wylosowane_liczby[i] == min(wylosowane_liczby[i:5]) && length(wylosowane_liczby[wylosowane_liczby == wylosowane_liczby[i]]) == 1) {
-#             warunek_spelniony <- warunek_spelniony + 1
-#         }
-#     }
-#     if (warunek_spelniony == 5) {
-#         liczba_prob_spelniajacych_warunek <- liczba_prob_spelniajacych_warunek + 1
-#     }
-# }
-# liczba_prob_spelniajacych_warunek / liczba_prob
-
-# # sposób pętla 2
-
-# start_time <- Sys.time()
-
-# liczba_prob <- 10^5
-# liczba_prob_spelniajacych_warunek <- 0
-
-# for (j in 1:liczba_prob) {
-#     wylosowane_liczby <- sample(1:20, 5, rep = TRUE)
-#     warunek_spelniony <- 0
-#     for (i in 1:4) {
-#         if (all(wylosowane_liczby[i] < wylosowane_liczby[(i + 1):5])) {
-#             warunek_spelniony <- warunek_spelniony + 1
-#         }
-#     }
-#     if (warunek_spelniony == 4) {
-#         liczba_prob_spelniajacych_warunek <- liczba_prob_spelniajacych_warunek + 1
-#     }
-# }
-# liczba_prob_spelniajacych_warunek / liczba_prob
-
-# end_time <- Sys.time()
-# end_time - start_time
 
 # sposób pętla 3
 # zwróci TRUE lub FALSE zależnie czy wylosowane kule spełniają warunki zadania

@@ -1,27 +1,6 @@
 
 library("lpSolve")
 
-# linear programming: small problems
-# zadanie 68 s 105
-# Set up cost matrix
-costs <- matrix(c(6, 1, 3, 3, 4, 3, 5, 2, 3, 2, 4, 5),
-    nrow = 3, byrow = TRUE
-)
-
-# Set up constraint signs and right-hand sides
-row.signs <- rep("==", 3)
-row.rhs <- c(1200, 800, 1200)
-col.signs <- rep("==", 4)
-col.rhs <- c(700, 700, 1000, 800)
-
-# Solve
-(lptrans <- lp.transport(costs, "min", row.signs, row.rhs,
-    col.signs, col.rhs,
-    compute.sens = 1
-))
-lptrans$solution
-lptrans$objval
-
 # zadanie 75 s 108
 # a)
 # Set up cost matrix

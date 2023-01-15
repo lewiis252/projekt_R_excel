@@ -19,7 +19,6 @@ mastercard$cena_srednia <- (mastercard$High + mastercard$Low) / 2
 srednia_kroczaca_visa <- rolling_average(visa$cena_srednia)
 srednia_kroczaca_mastercard <- rolling_average(mastercard$cena_srednia)
 
-srednia_kroczaca_visa1 <- rolling_average1(visa$cena_srednia)
 # wykres cen średniej kroczącej obu spółek
 pdf(file = "wykres.pdf")
 plot(srednia_kroczaca_visa, type = "l", col = "blue", xlab = "Data", ylab = "Cena", ylim = c(140, 400), lty = 1, xaxt = "n", ,main='Ceny akcji w latach 2019-2022')
@@ -54,6 +53,8 @@ sd(visa$Rozstep)
 mean(mastercard$Rozstep)
 sd(mastercard$Rozstep)
 
+cor(visa$Rozstep, visa$Volume)
+cor(mastercard$Rozstep,mastercard$Volume)
 
 pdf(file = "histogram.pdf")
 par(mfrow = c(1, 2))

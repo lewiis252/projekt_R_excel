@@ -56,25 +56,28 @@ sd(mastercard$Rozstep)
 cor(visa$Rozstep, visa$Volume)
 cor(mastercard$Rozstep,mastercard$Volume)
 
+cor(visa$Volume, mastercard$Volume)
+
 pdf(file = "histogram.pdf")
 par(mfrow = c(1, 2))
 hist(visa$Rozstep, breaks = 20, main='Występowanie kwoty salda', xlab='Róznica cen na koniec dnia', ylab='Częstość')
 hist(mastercard$Rozstep, breaks = 20, main='Występowanie kwoty salda', xlab='Róznica cen na koniec dnia', ylab='Częstość')
 dev.off()
-?boxplot
+# ?boxplot
 
 # par(mfrow = c(1, 2))
 # boxplot(visa$Rozstep)
 # boxplot(mastercard$Rozstep)
 
 # względny przyrost ceny na dzień 31 grudnia 2022 po zainwestowaniu dolarów 2 stycznia 2019
-zysk_visa <- (tail(visa$cena_srednia, 1) - visa$cena_srednia[1]) / visa$cena_srednia[1]
-zysk_mastercard <- (tail(mastercard$cena_srednia, 1) - mastercard$cena_srednia[1]) / mastercard$cena_srednia[1]
+(zysk_visa <- (tail(visa$cena_srednia, 1) - visa$cena_srednia[1]) / visa$cena_srednia[1])
+(zysk_mastercard <- (tail(mastercard$cena_srednia, 1) - mastercard$cena_srednia[1]) / mastercard$cena_srednia[1])
 
-stopa_zwrotu_zakup_akcji_co_20_dni <- function(dataframe_name) {
+
+stopa_zwrotu_zakup_akcji_co_x_dni <- function(dataframe_name, days) {
     cena_srednia <- (dataframe_name$High + dataframe_name$Low) / 2
 
-    dzien_zakupu <- rep_len(c(1, rep(0, 19)), length.out = nrow(dataframe_name)) # make column that storage day of purchase
+    dzien_zakupu <- rep_len(c(1, rep(0, (days-1))), length.out = nrow(dataframe_name)) # make column that storage day of purchase
 
     liczba_akcji <- 100 / cena_srednia * dzien_zakupu
 
@@ -90,6 +93,6 @@ stopa_zwrotu_zakup_akcji_co_20_dni <- function(dataframe_name) {
     stopa_zwrotu
 }
 
-stopa_zwrotu_zakup_akcji_co_20_dni(visa)
-stopa_zwrotu_zakup_akcji_co_20_dni(mastercard)
+stopa_zwrotu_zakup_akcji_co_20_dni(visa,30)
+stopa_zwrotu_zakup_akcji_co_20_dni(mastercard,30)
 

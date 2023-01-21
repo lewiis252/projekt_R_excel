@@ -38,7 +38,7 @@ legend(100, 400,
 dev.off()
 
 cor(srednia_kroczaca_visa, srednia_kroczaca_mastercard)
-
+cor(visa$cena_srednia, mastercard$cena_srednia)
 # wachania ceny w ciągu dnia
 visa$Rozstep <- visa$Close - visa$Open
 mastercard$Rozstep <- mastercard$Close - mastercard$Open
@@ -57,6 +57,9 @@ cor(visa$Rozstep, visa$Volume)
 cor(mastercard$Rozstep,mastercard$Volume)
 
 cor(visa$Volume, mastercard$Volume)
+
+sum(visa$Volume)
+sum(mastercard$Volume)
 
 pdf(file = "histogram.pdf")
 par(mfrow = c(1, 2))
@@ -93,6 +96,13 @@ stopa_zwrotu_zakup_akcji_co_x_dni <- function(dataframe_name, days) {
     stopa_zwrotu
 }
 
-stopa_zwrotu_zakup_akcji_co_20_dni(visa,30)
-stopa_zwrotu_zakup_akcji_co_20_dni(mastercard,30)
+stopa_zwrotu_zakup_akcji_co_x_dni(visa,30)
+stopa_zwrotu_zakup_akcji_co_x_dni(mastercard,30)
 
+# agregacja 
+visa$year <- format(as.Date(visa$Date, format="%Y-%m-%d"),"%Y")
+mastercard$year <- format(as.Date(visa$Date, format="%Y-%m-%d"),"%Y")
+visa$year
+?aggregate
+aggregate(visa$Volume, by=list(visa$year), FUN=sum)
+aggregate(mastercard$Volume, by=list(visa$year), FUN=sum)

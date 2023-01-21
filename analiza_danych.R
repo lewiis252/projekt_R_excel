@@ -4,12 +4,12 @@ visa <- read.csv("VISA.csv", header = TRUE, dec = ".")
 mastercard <- read.csv("MASTERCARD.csv", header = TRUE, dec = ".")
 
 # funkcja do obliczenia średniej kroczącej
-rolling_average <- function(x, n = 5){
+rolling_average <- function(x, n = 5) {
     srednia_kroczaca <- filter(x, rep(1 / n, n))
     srednia_kroczaca <- srednia_kroczaca[-(1:3)]
-    srednia_kroczaca <- srednia_kroczaca[- ((length(srednia_kroczaca)-2): length(srednia_kroczaca))]
+    srednia_kroczaca <- srednia_kroczaca[-((length(srednia_kroczaca) - 2):length(srednia_kroczaca))]
     return(srednia_kroczaca)
-    }
+}
 
 visa$cena_srednia <- (visa$High + visa$Low) / 2
 mastercard$cena_srednia <- (mastercard$High + mastercard$Low) / 2
@@ -19,7 +19,7 @@ srednia_kroczaca_mastercard <- rolling_average(mastercard$cena_srednia)
 
 # wykres cen średniej kroczącej obu spółek
 pdf(file = "wykres.pdf")
-plot(srednia_kroczaca_visa, type = "l", col = "blue", xlab = "Data", ylab = "Cena", ylim = c(140, 400), lty = 1, xaxt = "n", ,main='Ceny akcji w latach 2019-2022')
+plot(srednia_kroczaca_visa, type = "l", col = "blue", xlab = "Data", ylab = "Cena", ylim = c(140, 400), lty = 1, xaxt = "n", , main = "Ceny akcji w latach 2019-2022")
 lines(srednia_kroczaca_mastercard, type = "l", col = "red", lty = 1)
 axis(1,
     at = c(0, 200, 400, 600, 800, 1000),
@@ -52,22 +52,22 @@ mean(mastercard$Rozstep)
 sd(mastercard$Rozstep)
 
 cor(visa$Rozstep, visa$Volume)
-cor(mastercard$Rozstep,mastercard$Volume)
+cor(mastercard$Rozstep, mastercard$Volume)
 
 cor(visa$Volume, mastercard$Volume)
 
 
-# współczynniki zmienności 
-sd(visa$cena_srednia)/mean(visa$cena_srednia)
-sd(mastercard$cena_srednia)/mean(mastercard$cena_srednia)
+# współczynniki zmienności
+sd(visa$cena_srednia) / mean(visa$cena_srednia)
+sd(mastercard$cena_srednia) / mean(mastercard$cena_srednia)
 
-mean((mastercard$cena_srednia)/(visa$cena_srednia))
- 
+mean((mastercard$cena_srednia) / (visa$cena_srednia))
+
 
 pdf(file = "histogram.pdf")
 par(mfrow = c(1, 2))
-hist(visa$Rozstep, breaks = 20, main='Występowanie kwoty salda', xlab='Róznica cen na koniec dnia', ylab='Częstość')
-hist(mastercard$Rozstep, breaks = 20, main='Występowanie kwoty salda', xlab='Róznica cen na koniec dnia', ylab='Częstość')
+hist(visa$Rozstep, breaks = 20, main = "Występowanie kwoty salda", xlab = "Róznica cen na koniec dnia", ylab = "Częstość")
+hist(mastercard$Rozstep, breaks = 20, main = "Występowanie kwoty salda", xlab = "Róznica cen na koniec dnia", ylab = "Częstość")
 dev.off()
 # ?boxplot
 
@@ -102,16 +102,14 @@ dev.off()
 # stopa_zwrotu_zakup_akcji_co_x_dni(visa,30)
 # stopa_zwrotu_zakup_akcji_co_x_dni(mastercard,30)
 
-# agregacja 
+# agregacja
 
 # liczba obróconych akcji w roku
-visa$year <- format(as.Date(visa$Date, format="%Y-%m-%d"),"%Y")
-mastercard$year <- format(as.Date(visa$Date, format="%Y-%m-%d"),"%Y")
+visa$year <- format(as.Date(visa$Date, format = "%Y-%m-%d"), "%Y")
+mastercard$year <- format(as.Date(visa$Date, format = "%Y-%m-%d"), "%Y")
 
 sum(visa$Volume)
 sum(mastercard$Volume)
 
-aggregate(visa$Volume, by=list(visa$year), FUN=sum)
-aggregate(mastercard$Volume, by=list(visa$year), FUN=sum)
-
-
+aggregate(visa$Volume, by = list(visa$year), FUN = sum)
+aggregate(mastercard$Volume, by = list(visa$year), FUN = sum)

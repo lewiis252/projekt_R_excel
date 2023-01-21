@@ -2,20 +2,12 @@
 # Z każdego pudełka wybieramy jedną kulę. Oblicz prawdopodobieństwo zdarzenia polegającego na tym, że każda z wylosowanych liczb jest
 # mniejsza od wszystkich liczb wylosowanych z pudełek o większych numerach oraz suma wylosowanych liczb jest podzielna przez 3.
 
-
-# sposób pętla 1
-
-liczba_prob <- 10000000
-liczba_prob_spelniajacych_warunek <- 0
-
-
 # sposób pętla 3
 # zwróci TRUE lub FALSE zależnie czy wylosowane kule spełniają warunki zadania
 czy_war_spelniony <- function(x) {
     !is.unsorted(x) && !anyDuplicated(x) && (sum(x) %% 3 == 0)
 }
 
-start_time <- Sys.time()
 # trwa około 10 sekund
 liczba_prob <- 10^6
 liczba_prob_spelniajacych_warunek <- 0
@@ -29,13 +21,8 @@ for (j in 1:liczba_prob) {
 prawdop <- liczba_prob_spelniajacych_warunek / liczba_prob
 
 cat("Prawdopodobieństwo wynosi ", prawdop)
-end_time <- Sys.time()
-end_time - start_time
-
 
 # sposób funkcyjny
-
-start_time <- Sys.time()
 
 # trwa około 10 sekund
 N <- 10^6
@@ -44,5 +31,3 @@ prawdop <- length(wylosowane[wylosowane == TRUE]) / N
 
 cat("Prawdopodobieństwo wynosi ", prawdop)
 
-end_time <- Sys.time()
-end_time - start_time

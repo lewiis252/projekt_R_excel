@@ -1,4 +1,4 @@
-
+install.packages('lpSolve')
 library("lpSolve")
 
 # zadanie 75 s 108
